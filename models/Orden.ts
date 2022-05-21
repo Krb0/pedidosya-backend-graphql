@@ -21,6 +21,14 @@ const schema = new mongoose.Schema(
       required: true,
       minlength: 3,
     },
+    opinion: {
+      mensaje: {
+        type: String,
+      },
+      puntaje: {
+        type: Number,
+      },
+    },
     ordenes: {
       type: Array,
       required: false,
@@ -32,4 +40,4 @@ const schema = new mongoose.Schema(
 );
 
 schema.plugin(uniqueValidator);
-export default mongoose.model("Orden", schema);
+export default mongoose.model("Ordenes", schema);
