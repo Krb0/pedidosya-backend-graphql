@@ -13,6 +13,10 @@ const schema = new mongoose.Schema(
       required: true,
       minlength: 3,
     },
+    fondo: {
+      type: String,
+      required: true,
+    },
     tipo: {
       type: String,
       required: true,
@@ -28,7 +32,11 @@ const schema = new mongoose.Schema(
       required: true,
       minlength: 3,
     },
-    platos: Array,
+    categorias: {
+      type: Array,
+      nombre: String,
+      platos: Array,
+    },
     ordenes: Array,
   },
   {
