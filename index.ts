@@ -25,12 +25,17 @@ const typeDefs = gql`
     _id: ID!
     logo: String!
     tipo: Type!
+    fondo: String!
     nombre: String!
     envio: Int!
     minimo: Int!
     simpleOpinion: simpleOpinion!
-    platos: [Plato]!
+    categorias: [Categoria]
     ordenes: [String]
+  }
+  type Categoria {
+    nombre: String!
+    platos: [Plato]
   }
   type simpleOpinion {
     rating: Float!
