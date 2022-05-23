@@ -47,6 +47,16 @@ const typeDefs = gql`
     restaurantes: [Restaurante]
     restaurante(id: String): Restaurante
   }
+  type Mutation {
+    addRestaurante(
+      logo: String!
+      tipo: Type!
+      fondo: String!
+      nombre: String!
+      envio: Int!
+      minimo: Int!
+    ): Restaurante
+  }
 `;
 
 const resolvers = {
@@ -56,6 +66,21 @@ const resolvers = {
     restaurantes: async () => await Restaurante.find({}),
     restaurante: async (_: any, { id }: { id: string }) =>
       await Restaurante.findById(id),
+  },
+  Mutation: {
+    addRestaurante: async (_: any, args: any) => {
+      const { logo, tipo, fondo, nombre, envio, minimo } = args;
+      const newRestaurante = new Restaurante({
+        logo,
+        tipo,
+        fondo,
+        nombre,
+        envio,
+        minimo,
+      });
+      await newRestaurante.save();
+      return newRestaurante;
+    },
   },
   Restaurante: {
     ordenes: async (restaurante: any) => {
