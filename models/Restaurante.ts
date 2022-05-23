@@ -16,6 +16,7 @@ const schema = new mongoose.Schema(
     fondo: {
       type: String,
       required: true,
+      minlength: 4,
     },
     tipo: {
       type: String,
@@ -25,12 +26,12 @@ const schema = new mongoose.Schema(
     envio: {
       type: Number,
       required: true,
-      minlength: 3,
+      minlength: 1,
     },
     minimo: {
       type: String,
       required: true,
-      minlength: 3,
+      minlength: 1,
     },
     categorias: {
       type: Array,
