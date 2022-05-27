@@ -1,63 +1,5 @@
-import { ApolloServer, UserInputError, gql } from "apollo-server";
-import "./db.ts";
-import Restaurante from "./models/Restaurante";
-import Orden from "./models/Orden";
-
-const typeDefs = gql`
-  enum Type {
-    Restaurante
-    Mascotas
-  }
-  type Orden {
-    restaurante: String!
-    platos: [String]!
-    total: Int!
-    usuario: String!
-  }
-  type Plato {
-    _id: String!
-    foto: String!
-    nombre: String!
-    descripcion: String!
-    precio: Int!
-  }
-  type Restaurante {
-    _id: ID!
-    logo: String!
-    tipo: Type!
-    fondo: String!
-    nombre: String!
-    envio: Int!
-    minimo: Int!
-    simpleOpinion: simpleOpinion!
-    categorias: [Categoria]
-    ordenes: [String]
-  }
-  type Categoria {
-    nombre: String!
-    platos: [Plato]
-  }
-  type simpleOpinion {
-    rating: Float!
-    opinionCount: Int!
-  }
-
-  type Query {
-    restaurantesCount: Int!
-    restaurantes: [Restaurante]
-    restaurante(id: String): Restaurante
-  }
-  type Mutation {
-    addRestaurante(
-      logo: String!
-      tipo: Type!
-      fondo: String!
-      nombre: String!
-      envio: Int!
-      minimo: Int!
-    ): Restaurante
-  }
-`;
+import Restaurante from './models/Restaurante';
+import Orden from './models/Orden';
 
 const resolvers = {
   Query: {
@@ -85,7 +27,7 @@ const resolvers = {
   Restaurante: {
     ordenes: async (restaurante: any) => {
       const restaurant = await Restaurante.findById(restaurante._id);
-      if (restaurant.ordenes.length === 0) return "olaa";
+      if (restaurant.ordenes.length === 0) return 'olaa';
       return restaurant.ordenes;
     },
     simpleOpinion: async (restaurante: any) => {
@@ -109,7 +51,4 @@ const resolvers = {
     },
   },
 };
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-server.listen().then(({ url }) => console.log(`🚀  Server ready at ${url}`));
+export default resolvers;
